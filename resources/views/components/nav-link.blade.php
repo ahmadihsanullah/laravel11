@@ -1,5 +1,5 @@
 <!-- resources/views/components/nav-link.blade.php -->
-@props(['active'])
+@props(['active' => false,])
 
 @php
 $classes = ($active ?? false)
