@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
 use App\Models\Post;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('home', ["title" => "Home Page"]);
@@ -16,8 +18,19 @@ Route::get('/posts', function () {
     return view('posts', ['title'=>'Blog', 'posts'=> Post::all()]);
 });
 
+
+Route::get('/authors/{user}', function (User $user) {
+    return view('posts', ['title'=>'Articles Written By ' . $user->name, 'posts'=> $user->posts]);
+});
+
 Route::get('/posts/{post:slug}', function(Post $post){
     return view('post', ['title' => 'Single Post', 'post' => $post]);
+
+});
+
+
+Route::get('/posts/categories/{category:slug}', function(Category $category){
+    return view('posts', ['title' => 'Article By Category ' . $category->name, 'posts' => $category->posts]);
 
 });
 
