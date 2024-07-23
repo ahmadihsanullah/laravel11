@@ -15,11 +15,15 @@ Route::get('/about', function () {
 });
 
 Route::get('/posts', function () {
+    // mengubah lazy loading menjadi eager loading untuk menghindari N + 1
+    // $posts = Post::with(['author', 'category'])->latest()->get();
     return view('posts', ['title'=>'Blog', 'posts'=> Post::all()]);
 });
 
 
 Route::get('/authors/{user:username}', function (User $user) {
+    // Lazy Eager Loading
+    // $posts = $user->posts->load('author', 'category');
     return view('posts', ['title'=> count($user->posts) . ' Articles Written By ' . $user->name, 'posts'=> $user->posts]);
 });
 
